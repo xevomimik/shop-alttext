@@ -1,10 +1,11 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
+import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'ShopAltText - AI-Powered Alt Text for Shopify',
-  description: 'Automatically generate SEO-optimized alt text for your Shopify product images using AI.',
-}
+  description:
+    'Automatically generate SEO-optimized alt text for your Shopify product images using AI.',
+};
 
 export default function Home() {
   return (
@@ -21,14 +22,14 @@ export default function Home() {
               Save hours of manual work and improve your store's search rankings.
             </p>
             <div className="flex justify-center gap-4">
-              <Link 
-                href="/dashboard" 
+              <Link
+                href="/dashboard"
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors"
               >
                 Start Free
               </Link>
-              <Link 
-                href="#features" 
+              <Link
+                href="#features"
                 className="bg-gray-100 text-gray-700 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-200 transition-colors"
               >
                 Learn More
@@ -106,10 +107,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Automate Your Alt Text?</h2>
           <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-            Join hundreds of Shopify merchants saving hours every week. Free tier includes 100 generations/month.
+            Join hundreds of Shopify merchants saving hours every week. Free tier includes 100
+            generations/month.
           </p>
-          <Link 
-            href="/dashboard" 
+          <Link
+            href="/dashboard"
             className="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-50 transition-colors inline-block"
           >
             Get Started Free
@@ -128,25 +130,61 @@ export default function Home() {
             <div>
               <h4 className="text-white font-medium mb-4">Product</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Pricing</a></li>
-                <li><a href="#" className="hover:text-white">API Docs</a></li>
-                <li><a href="#" className="hover:text-white">Changelog</a></li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    API Docs
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Changelog
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-medium mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">About</a></li>
-                <li><a href="#" className="hover:text-white">Blog</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-medium mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Privacy</a></li>
-                <li><a href="#" className="hover:text-white">Terms</a></li>
-                <li><a href="#" className="hover:text-white">Security</a></li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Terms
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Security
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -156,20 +194,36 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-function FeatureCard({ icon, title, description }: { icon: string; title: string; description: string }) {
+function FeatureCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
       <div className="text-4xl mb-4">{icon}</div>
       <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
       <p className="text-gray-600">{description}</p>
     </div>
-  )
+  );
 }
 
-function StepCard({ number, title, description }: { number: string; title: string; description: string }) {
+function StepCard({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="text-center relative">
       <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
@@ -178,5 +232,5 @@ function StepCard({ number, title, description }: { number: string; title: strin
       <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
       <p className="text-gray-600">{description}</p>
     </div>
-  )
+  );
 }

@@ -1,36 +1,36 @@
-import { Metadata } from 'next'
-import Image from 'next/image'
-import { createServerClient } from '@/lib/supabase'
-import { redirect } from 'next/navigation'
+import { Metadata } from 'next';
+import Image from 'next/image';
+import { createServerClient } from '@/lib/supabase';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Dashboard - ShopAltText',
   description: 'Manage your alt-text generation jobs',
-}
+};
 
 async function getUserJobs(supabase: ReturnType<typeof createServerClient> | null) {
-  if (!supabase) return []
+  if (!supabase) return [];
   const { data: jobs } = await supabase
     .from('alt_text_jobs')
     .select('*')
     .order('created_at', { ascending: false })
-    .limit(50)
-  return jobs || []
+    .limit(50);
+  return jobs || [];
 }
 
 async function getUsageStats(supabase: ReturnType<typeof createServerClient> | null) {
-  if (!supabase) return []
+  if (!supabase) return [];
   const { data: events } = await supabase
     .from('usage_events')
     .select('event_type, created_at')
-    .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-  return events || []
+    .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
+  return events || [];
 }
 
 export default async function DashboardPage() {
-  const supabase = createServerClient()
-  const jobs = await getUserJobs(supabase)
-  const usage = await getUsageStats(supabase)
+  const supabase = createServerClient();
+  const jobs = await getUserJobs(supabase);
+  const usage = await getUsageStats(supabase);
 
   const stats = {
     total: jobs.length,
@@ -39,7 +39,7 @@ export default async function DashboardPage() {
     processing: jobs.filter(j => j.status === 'processing').length,
     failed: jobs.filter(j => j.status === 'failed').length,
     thisMonth: usage.filter(e => e.event_type === 'alt_text_generated').length,
-  }
+  };
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -80,12 +80,24 @@ export default async function DashboardPage() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alt Text</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Model</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Product
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Image
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Alt Text
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Model
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Created
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -96,7 +108,7 @@ export default async function DashboardPage() {
                     </td>
                   </tr>
                 ) : (
-                  jobs.map((job) => (
+                  jobs.map(job => (
                     <tr key={job.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 text-sm text-gray-900">
                         Product #{job.shopify_product_id}
@@ -116,9 +128,7 @@ export default async function DashboardPage() {
                       <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                         {job.alt_text || '—'}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {job.model_used || '—'}
-                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">{job.model_used || '—'}</td>
                       <td className="px-6 py-4 text-sm text-gray-500">
                         {new Date(job.created_at).toLocaleDateString()}
                       </td>
@@ -131,14 +141,19 @@ export default async function DashboardPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }
 
-function StatCard({ title, value, icon, color = 'gray' }: { 
-  title: string; 
-  value: number; 
-  icon: string; 
-  color?: 'gray' | 'green' | 'yellow' | 'blue' | 'purple' 
+function StatCard({
+  title,
+  value,
+  icon,
+  color = 'gray',
+}: {
+  title: string;
+  value: number;
+  icon: string;
+  color?: 'gray' | 'green' | 'yellow' | 'blue' | 'purple';
 }) {
   const colors = {
     gray: 'bg-gray-100 text-gray-600',
@@ -146,7 +161,7 @@ function StatCard({ title, value, icon, color = 'gray' }: {
     yellow: 'bg-yellow-100 text-yellow-600',
     blue: 'bg-blue-100 text-blue-600',
     purple: 'bg-purple-100 text-purple-600',
-  }
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -160,7 +175,7 @@ function StatCard({ title, value, icon, color = 'gray' }: {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -169,11 +184,13 @@ function StatusBadge({ status }: { status: string }) {
     processing: 'bg-blue-100 text-blue-800',
     completed: 'bg-green-100 text-green-800',
     failed: 'bg-red-100 text-red-800',
-  }
+  };
 
   return (
-    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${styles[status as keyof typeof styles] || styles.pending}`}>
+    <span
+      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${styles[status as keyof typeof styles] || styles.pending}`}
+    >
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
-  )
+  );
 }
