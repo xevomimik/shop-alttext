@@ -7,5 +7,5 @@ export default function Home() {
       </p>
       <p className="text-sm text-gray-400 mt-8">Week 0 - GATE 0 Verified</p>
     </main>
-  )
+  );
 }
